@@ -3,7 +3,7 @@ import os
 import binascii
 import ecdsa
 import hmac
-import haなっておりなっており
+import hashlib
 
 seed=os.urandom(32)
 root_key=b"Bitcoin seed"
