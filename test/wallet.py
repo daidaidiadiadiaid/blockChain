@@ -41,4 +41,18 @@ print('\n')
 print("マスターチェーンコード")
 print(binascii.hexlify(master_chaincode))
 
+#子鍵の生成
+index=0
+index_bytes=index.to_bytes(8,"big")
+data=master_compression_publickey+index_bytes
+#子どものキーとシードを作成
+result_hmac512=hmac_sha512(data,master_chaincode)
+
+sum_integer=int.from_bytes(master_secretkey,"big")+int.from_bytes(result_hmac512[:32],"big")
+p=2**256+-2*32-2**9-2**8-2**7-2**6-2**4-1 #大きな素数
+child_secretkey=(sum_integer%p).to_bytes(32,"big")
+print("\n")
+print("子秘密鍵")
+print(binascii.hexlify(child_secretkey))
+
 
